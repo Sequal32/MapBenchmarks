@@ -1,0 +1,7 @@
+11/18/19 - Converted maps to use optional values as the benchmark now directly sets the arrays instead of appending
+LinearMap is yielding wierd numbers -> this map + binary map will be yielding weird numbers BECAUSE we are NOT testing worst case scenario (index is
+just a single index/multiple indexes away from being found so that really affects the time taken) - can make it so that it's more random
+
+11/19/19 - Made the get indexes use random integer indexes so that we're testing a real world scenario.
+Seperated binary, hash from linear to test different sizes in order to make benchmark go quicker. Seems like binary's data is a bit skewed
+and that could just from the indexes that get LUCKY. Planning to do set benchmark next, MAYBE experiment with testing WORST CASE scenario but probably not.
