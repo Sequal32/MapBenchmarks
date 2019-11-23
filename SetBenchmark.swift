@@ -7,11 +7,12 @@ class SetBenchmark : MapBenchmark {
   }
 
   override func runTest(map: Map<String, String>) -> Int {
+    print(map.count)
     timer.startTimer()
     // Run this 3 times a get the average? array.reduce(0, +)
-    for _ in 0..<sets {
+    for i in 0..<sets {
       let str = generateRandomString(5)
-      map[str] = str
+      map.set(str, v: str)
     }
     
     return timer.getTime()

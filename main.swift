@@ -5,26 +5,21 @@ var linearPoints: [Int] = []
 var binaryPoints: [Int] = []
 var hashPoints: [Int] = []
 
-func testOperations(_ operations: Int) {
-  let bm = SetBenchmark(operations: 10000000, sets: 10000)
-  print("[INFO] Size of array: \(operations) 10000 Gets")
+let gbm = GetBenchmark(operations: 100000, gets: 10000)
+let sbm = SetBenchmark(operations: 100000, sets: 1000)
 
-  // bm.appendToMaps(size: operations-cacheSize)
-
-  binaryPoints.append(bm.testBinary())
-  hashPoints.append(bm.testHash())
-
-  cacheSize = operations
+func testGets() {
+  
 }
 
-func testLinearOperations(_ operations: Int) {
-  let bm = GetBenchmark(operations: 1000, gets: 500)
-  cacheSize = 0
+func testMaps(_ operations: Int) {
+  print("[INFO] Size of maps: \(operations)")
 
-  print("[INFO] Size of array: \(operations) 500 Gets")
+  gbm.appendToMaps(size: operations-cacheSize)
+  sbm.appendToMaps(size: operations-cacheSize)
 
-  bm.appendToMaps(size: operations-cacheSize)
-  linearPoints.append(bm.testLinear())
+  binaryPoints.append(gbm.testBinary())
+  hashPoints.append(sbm.testHash())
 
   cacheSize = operations
 }
@@ -51,8 +46,8 @@ let hashBinaryTest: [Int] = [
   10000000
 ]
 
-for test in hashBinaryTest {
-  testOperations(test)
+for test in 1...100 {
+  testMaps(test * 1000)
 }
 print("Final Results:\nBinary Map: \(binaryPoints)\nHash map: \(hashPoints)\nLinear map: \(linearPoints)")
 // for test in 1...14 {

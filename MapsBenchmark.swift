@@ -30,7 +30,7 @@ class MapBenchmark {
     return s
   }
 
-  func appendToMaps(size: Int) {
+  func appendToMaps(size: Int, includeHash: Bool = true) {
     print("[INFO] Reserving space...")
     indexes.reserveCapacity(indexes.count + size)
     // values.reserveCapacity(values.count + size)
@@ -41,9 +41,9 @@ class MapBenchmark {
     }
     indexes.sort()
 
-    lMap.setArrays(kArray: &indexes, vArray: indexes)
-    bMap.setArrays(kArray: &indexes, vArray: indexes)
-    hMap.setArrays(kArray: &indexes, vArray: indexes)
+    lMap.setArrays(kArray: indexes, vArray: indexes)
+    bMap.setArrays(kArray: indexes, vArray: indexes)
+    if includeHash { hMap.setArrays(kArray: indexes, vArray: indexes) }
     print("[INFO] Done reserving!")
   }
 

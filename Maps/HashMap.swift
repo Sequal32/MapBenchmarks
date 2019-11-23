@@ -11,18 +11,16 @@ class HashMap<K : Hashable, V> : Map<K, V> {
 
   override func set(_ k: K, v: V) {
     let index = abs(k.hashValue % values.count)
-
-    switch keys[index] {
-      case nil: // If nothing is set, then create a new key & value pair
-        keys[index] = k
-        values[index] = v
-        mapCount += 1
-      case let storedKey where storedKey != k: // If the key in the hashmap is not equal to the key being set, put it in collisions
-        numberCollisions += 1
-        collisions[k] = v
-      default: //If the storedkey is equal to the key, replace the value
-        values[index] = v
+    guard let key = keys[index] else {
+      keys[index] = k
+      values[index] = v
+      mapCount += 1
+      return
     }
+
+    if key != k {numberCollisions += 1; collisions[k] = v} else{values[index] = v}
+
+
   }
 
   override func remove(_ k: K) {
