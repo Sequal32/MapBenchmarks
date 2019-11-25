@@ -1,13 +1,13 @@
 class GetBenchmark : MapBenchmark {
   let gets: Int
 
-  init(operations: Int, gets: Int = 1000) {
+  init(gets: Int = 1000, map: Map<String, String>) {
     self.gets = gets
 
-    super.init(operations: operations)
+    super.init(map: map)
   }
 
-  override func runTest(map: Map<String, String>) -> Int {
+  override func runTest() -> Int {
     timer.startTimer()
     // Run this 3 times a get the average? array.reduce(0, +)
     for _ in 0..<gets {

@@ -7,7 +7,7 @@ class Map<K: Hashable, V>: CustomStringConvertible {
   func remove(_ k: K) {return}
   func get(_ k: K)-> V? {return nil}
   // Helper function to immedietly set arrays w/o any checks
-  func setArrays(kArray: Array<K>, vArray: Array<V>) {
+  func setArrays(kArray: Array<K>, vArray: inout Array<V>) {
     keys = kArray
     values = vArray
   }

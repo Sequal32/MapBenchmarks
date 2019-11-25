@@ -1,13 +1,12 @@
 class SetBenchmark : MapBenchmark {
   let sets: Int
 
-  init(operations: Int, sets: Int = 1000) {
+  init(sets: Int = 1000, map: Map<String, String>) {
     self.sets = sets
-    super.init(operations: operations)
+    super.init(map: map)
   }
 
-  override func runTest(map: Map<String, String>) -> Int {
-    print(map.count)
+  override func runTest() -> Int {
     timer.startTimer()
     // Run this 3 times a get the average? array.reduce(0, +)
     for i in 0..<sets {

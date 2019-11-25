@@ -5,21 +5,15 @@ func getRandomInt(range: Int) -> Int {
 }
 
 class MapBenchmark {
-  let operations: Int
   let timer: Timer = Timer()
 
-  var lMap: LinearMap<String, String>
-  var bMap: BinaryMap<String, String>
-  var hMap: HashMap<String, String>
+  let map: Map<String, String>
 
   var indexes: [String] = []
   var values: [String] = []
 
-  init(operations: Int) {
-    self.operations = operations
-    lMap = LinearMap()
-    bMap = BinaryMap()
-    hMap = HashMap(initialArraySize: operations * 100)
+  init(map: Map<String, String>) {
+    self.map = map
   }
 
   func generateRandomString(_ length: Int) -> String {
@@ -30,57 +24,27 @@ class MapBenchmark {
     return s
   }
 
-  func appendToMaps(size: Int, includeHash: Bool = true) {
+  func appendToMap(size: Int) {
     print("[INFO] Reserving space...")
     indexes.reserveCapacity(indexes.count + size)
     // values.reserveCapacity(values.count + size)
 
     for _ in 0..<size {
       indexes.append(generateRandomString(10))
-      // values.append(generateRandomString(10))
     }
-    indexes.sort()
+    if map is BinaryMap {indexes.sort()}
 
-    lMap.setArrays(kArray: indexes, vArray: indexes)
-    bMap.setArrays(kArray: indexes, vArray: indexes)
-    if includeHash { hMap.setArrays(kArray: indexes, vArray: indexes) }
+    map.setArrays(kArray: indexes, vArray: &indexes)
     print("[INFO] Done reserving!")
   }
 
-  func fillMaps() {
-    self.appendToMaps(size: max(0, operations-hMap.count))
+  func setMapSize(size: Int) {
+    appendToMap(size: max(0, size-indexes.count))
   }
 
-  func resetMaps() {
-    lMap = LinearMap()
-    bMap = BinaryMap()
-    hMap = HashMap(initialArraySize: Int(Float(operations) * 0.2))
-  }
+  // Test func
 
-  // Test superfunc
-
-  func runTest(map: Map<String, String>) -> Int {
+  func runTest() -> Int {
     return 0
-  }
-
-  // Test benchmarks
-
-  func testLinear() -> Int {
-    print("[INFO] Testing Linear")
-    return runTest(map: self.lMap)
-  }
-
-  func testBinary() -> Int {
-    print("[INFO] Testing Binary")
-    return runTest(map: self.bMap)
-  }
-
-  func testHash() -> Int {
-    print("[INFO] Testing Hash")
-    return runTest(map: self.hMap)
-  }
-
-  func testAll() -> [Int] {
-    return [testLinear(), testBinary(), testHash()]
   }
 }
