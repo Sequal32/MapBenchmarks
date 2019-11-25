@@ -35,8 +35,9 @@ for test in stride(from: 100, to: 5000, by: 100) {
   // getLinearPoints.append(testMap(test, linGetBm))
   // getBinaryPoints.append(testMap(test * 100, binGetBm))
   // getHashPoints.append(testMap(test * 100, hashGetBm, binGetBm.indexes))
-  // setLinearPoints.append(testMap(test, linSetBm))
+  setLinearPoints.append(testMap(test, linSetBm))
   setBinaryPoints.append(testMap(test * 100, binSetBm))
-  // setHashPoints.append(testMap(test * 100, hashSetBm, binSetBm.indexes))
+  setHashPoints.append(testMap(test * 100, hashSetBm, binSetBm.indexes))
 }
+print("COLLISIONS \(hashGetBm.map.getNumberCollisions())")
 print("****GETS****\nBinary Map: \(getBinaryPoints)\nHash map: \(getHashPoints)\nLinear map: \(getLinearPoints)\n\n****SETS****\nBinary Map: \(setBinaryPoints)\nHash map: \(setHashPoints)\nLinear map: \(setLinearPoints)")

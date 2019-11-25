@@ -6,11 +6,18 @@ class SetBenchmark : MapBenchmark {
     super.init(map: map)
   }
 
+  func gambleString() -> String {
+    if getRandomInt(range: 2) == 1 {
+      return indexes[getRandomInt(range: indexes.count)]
+    }
+    return generateRandomString(5)
+  }
+
   override func runTest() -> Int {
     timer.startTimer()
-    // Run this 3 times a get the average? array.reduce(0, +)
+
     for i in 0..<sets {
-      let str = generateRandomString(5)
+      let str = gambleString()
       map.set(str, v: str)
     }
     
