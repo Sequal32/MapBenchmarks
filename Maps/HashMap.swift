@@ -19,8 +19,6 @@ class HashMap<K : Hashable, V> : Map<K, V> {
     }
 
     if key != k {numberCollisions += 1; collisions[k] = v} else{values[index] = v}
-
-
   }
 
   override func remove(_ k: K) {

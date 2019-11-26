@@ -10,7 +10,7 @@ class SetBenchmark : MapBenchmark {
     if getRandomInt(range: 2) == 1 {
       return indexes[getRandomInt(range: indexes.count)]
     }
-    return generateRandomString(5)
+    return generateRandomString(10)
   }
 
   override func runTest() -> Int {
