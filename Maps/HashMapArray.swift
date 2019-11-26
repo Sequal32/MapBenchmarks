@@ -48,9 +48,10 @@ class HashMapArray<K : Hashable, V> : Map<K, V> {
     get {
       var valueString: String = "["
 
-      for (index, value) in keys.enumerated() {
-        guard let newValue = value else {continue}
-        valueString += "\(newValue): \(values[index]!), "
+      for (index, array) in keyArray.enumerated() {
+        for (keyIndex, key) in array.enumerated() {
+          valueString += "\(key): \(valueArray[index][keyIndex]), "
+        }
       }
       // Cleanly add a bracket to the end by substringing the hanging comma O(n)
       return "\(valueString.prefix(valueString.count - 2))]"
