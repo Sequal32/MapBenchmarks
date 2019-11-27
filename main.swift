@@ -13,7 +13,7 @@ var setHashPoints: [Int] = []
 var setHashArrayPoints: [Int] = []
 
 
-let linGetBm = GetBenchmark(      gets: 1000,   map: LinearMap<String, String>())
+let linGetBm = GetBenchmark(      gets: 100,   map: LinearMap<String, String>())
 let binGetBm = GetBenchmark(      gets: 100000, map: BinaryMap<String, String>())
 let hashGetBm = GetBenchmark(     gets: 100000,  map: HashMap<String, String>(     initialArraySize: 100000000))
 
@@ -22,10 +22,10 @@ let binSetBm = SetBenchmark(      sets: 1000,  map: BinaryMap<String, String>())
 let hashSetBm = SetBenchmark(     sets: 1000, map: HashMap<String, String>(     initialArraySize: 100000000))
 
 // Extra credit collisions
-let hashGetBm = GetBenchmark(     gets: 100000,  map: HashMap<String, String>(     initialArraySize: 10000))
-let hashSetBm = SetBenchmark(     sets: 1000, map: HashMap<String, String>(     initialArraySize: 10000)
-let hashArraySetBm = SetBenchmark(sets: 1000, map: HashMapArray<String, String>(  initialArraySize: 10000))  
-let hashArrayGetBm = GetBenchmark(gets: 100000,  map: HashMapArray<String, String>(initialArraySize: 10000))
+let hashcGetBm = GetBenchmark(     gets: 1000,  map: HashMap<String, String>(     initialArraySize: 100000))
+let hashArrayGetBm = GetBenchmark(gets: 1000,  map: HashMapArray<String, String>(initialArraySize: 100000))
+let hashcSetBm = SetBenchmark(     sets: 100, map: HashMap<String, String>(     initialArraySize: 100000))
+let hashArraySetBm = SetBenchmark(sets: 100, map: HashMapArray<String, String>(  initialArraySize: 100000))  
 
 func testMap(_ operations: Int, _ bm: MapBenchmark, overrideNative: Bool = false) -> Int {
   print("[INFO] Testing size \(operations)")
@@ -49,17 +49,15 @@ for test in stride(from: 100, to: 5000, by: 100) {
   setHashPoints.append(testMap(bigTest, hashSetBm))
   print("test binary")
   setBinaryPoints.append(testMap(bigTest, binSetBm))
-
-  print("COLLISIONS \(hashSetBm.map.getNumberCollisions())")
   
 
   // EXTRA CREDIT TESTING //
   print("test ehash")
-  getHashPoints.append(testMap(test, hashGetBm))
+  getHashPoints.append(testMap(test, hashcGetBm))
   print("test ehasharray")
   getHashArrayPoints.append(testMap(test, hashArrayGetBm))
   print("test ehash")
-  setHashPoints.append(testMap(test, hashSetBm))
+  setHashPoints.append(testMap(test, hashcSetBm))
   print("test ehasharray")
   setHashArrayPoints.append(testMap(test, hashArraySetBm))
   print("COLLISIONS \(hashArraySetBm.map.getNumberCollisions())")

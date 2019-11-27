@@ -15,7 +15,6 @@ class HashMapArray<K : Hashable, V> : Map<K, V> {
     return abs(k.hashValue % keyArray.count)
   }
 
-
   override func set(_ k: K, v: V) {
     let index = getHashValue(k)
     // If the key does not exist in the key array then append a new value
