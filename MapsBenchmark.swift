@@ -1,4 +1,4 @@
-let chars: String = "abcdefghijklmnopqrstuvwxyz"
+let chars: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 func getRandomInt(range: Int) -> Int {
   return Int.random(in: 0..<range)
@@ -24,10 +24,16 @@ class MapBenchmark {
     return s
   }
 
+  func appendToMapNative(size: Int) {
+    for i in 0..<size {
+      let str = generateRandomString(10)
+      map.set(str, v:str)
+      indexes.append(str)
+    }
+  }
+
   func appendToMap(size: Int) {
-    print("[INFO] Reserving space...")
     indexes.reserveCapacity(indexes.count + size)
-    // values.reserveCapacity(values.count + size)
 
     for _ in 0..<size {
       indexes.append(generateRandomString(10))
@@ -35,10 +41,15 @@ class MapBenchmark {
     if map is BinaryMap {indexes.sort()}
 
     map.setArrays(kArray: indexes, vArray: &indexes)
-    print("[INFO] Done reserving!")
   }
 
-  func setMapSize(size: Int) {
+  func setMapSize(size: Int, overrideNative: Bool = false) {
+    // Need to use set function as HashMap has collisions
+    if (map is HashMap || map is HashMapArray) && !overrideNative {
+      appendToMapNative(size: size)
+      return
+    }
+
     appendToMap(size: max(0, size-indexes.count))
   }
 

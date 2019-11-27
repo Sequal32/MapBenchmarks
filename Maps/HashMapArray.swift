@@ -21,9 +21,9 @@ class HashMapArray<K : Hashable, V> : Map<K, V> {
     // If the key does not exist in the key array then append a new value
 
     guard let valueIndex = keyArray[index].firstIndex(of: k) else {
+      numberCollisions += 1
       keyArray[index].append(k)
       valueArray[index].append(v)
-
       return
     }
 

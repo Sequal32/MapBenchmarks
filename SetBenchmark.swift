@@ -16,9 +16,16 @@ class SetBenchmark : MapBenchmark {
   override func runTest() -> Int {
     timer.startTimer()
 
-    for i in 0..<sets {
-      let str = gambleString()
-      map.set(str, v: str)
+    for i in 0..<Int(Float(sets) * 0.01) {
+      var indexCopy = indexes
+
+      for i in 0..<100 {
+        let str = gambleString()
+        map.set(str, v: str)
+      }
+
+      if map is HashMap || map is HashMapArray {continue}
+      map.setArrays(kArray: indexCopy, vArray: &indexCopy)
     }
     
     return timer.getTime()
